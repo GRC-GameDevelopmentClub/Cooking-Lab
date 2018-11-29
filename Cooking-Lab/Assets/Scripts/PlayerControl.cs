@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour {
     public float speed = 5;
 
+    private bool facingRight = true;
     private Rigidbody2D rb;
     private bool grounded;
     // Use this for initialization
@@ -18,12 +19,20 @@ public class PlayerControl : MonoBehaviour {
         if (Input.GetKey(KeyCode.D))
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
-            transform.localScale = new Vector2(1, 1);
+            if (!facingRight)
+            {
+                facingRight = true;
+                transform.Rotate(0f, 180f, 0f);
+            }  
         }
         else if (Input.GetKey(KeyCode.A))
         {
             rb.velocity = new Vector2(-speed, rb.velocity.y);
-            transform.localScale = new Vector2(-1, 1);
+            if (facingRight)
+            {
+                facingRight = false;
+                transform.Rotate(0f, 180f, 0f);
+            }
         }
         else
         {
